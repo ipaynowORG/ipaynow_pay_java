@@ -1,0 +1,3 @@
+serverPort=7072
+absoluteWebappDir=D:\\ipaynow\\ipaynow_pay\\ipaynow_pay_demo\\webapps
+#absoluteWebappDir=/opt/export/app/pay_sdk/webapps

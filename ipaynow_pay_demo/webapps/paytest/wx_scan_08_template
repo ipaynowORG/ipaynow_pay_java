@@ -1,0 +1,12 @@
+<html>
+<body>
+应答:${result.respResult!}<br/>
+应答消息:${result.responseMsg!}<br/>
+商户订单号:${result.mhtOrderNo!}<br/>
+现在支付订单号:${result.nowPayOrderNo!}<br/>
+应答时间:${result.responseTime!}<br/>
+<img src="${result.tn!}" />
+<br/>
+<a href="index.html">返回</a>
+</body>
+</html>

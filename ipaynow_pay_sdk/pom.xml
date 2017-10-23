@@ -1,0 +1,196 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+      <name>ipaynow_pay_sdk</name>
+      <description>ipaynow_pay_sdk</description>
+      <url>http://www.ipaynow.cn/</url>
+      
+      
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <name></name>
+            <email></email>
+        </developer>
+    </developers>
+    
+     <scm>
+        <connection></connection>
+        <developerConnection></developerConnection>
+        <url></url>
+    </scm>
+    
+    
+    
+    
+  <properties>
+        <version>1.0.2</version>
+  </properties>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.ipaynow</groupId>
+  <artifactId>ipaynow_pay_sdk</artifactId>
+  <packaging>jar</packaging>
+  <version>${version}</version>
+  
+  
+  
+  <dependencies>
+  </dependencies>
+   
+  <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <resources>
+        <resource>
+            <directory>src/main/resource</directory>
+            <filtering>true</filtering>
+            <targetPath>${project.build.directory}/classes</targetPath>
+        </resource>
+    </resources>
+
+
+
+
+
+    <plugins>
+        <!-- 设置源文件编码方式 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+                <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
+        <!-- 拷贝依赖的jar包到lib目录 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+	            <execution>
+		            <id>copy</id>
+		            <phase>package</phase>
+		            <goals>
+		                <goal>copy-dependencies</goal>
+		            </goals>
+		            <configuration>
+		                <outputDirectory>
+		                    ${project.build.directory}/lib
+		                </outputDirectory>
+		                <excludeScope>provided</excludeScope>
+		            </configuration>
+		        </execution>
+	        </executions>
+        </plugin>
+        <!-- 解决资源文件的编码问题 -->
+        <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>2.5</version>
+			<configuration>
+			<encoding>UTF-8</encoding>
+			</configuration>
+        </plugin>
+        <!-- 编译打包时跳过单元测试-->
+        <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-surefire-plugin</artifactId>
+           <configuration>
+           <skip>true</skip>
+           </configuration>
+         </plugin>
+         <!-- 源码打包-->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.2.1</version>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>jar-no-fork</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <!-- javadoc-->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-javadoc-plugin</artifactId>
+                 <version>2.9.1</version>
+                 <configuration>
+                 	<encoding>UTF-8</encoding>
+                 </configuration>
+                 <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+              </executions>
+         </plugin>
+         <!-- GPG签名
+         1. 下载Gpg4win-Vanilla版本,https://www.gpg4win.org/download.html
+         2. 查看安装成功 gpg －－version
+         3. 生成秘钥对 gpg －－gen－key
+         		此时需要输入姓名、邮箱等字段，其它字段可使用默认值，
+         		此外，还需要输入一个 Passphase，相当于一个密钥库的密码，后面会用到。
+         4. 查看公钥 gpg －－list－keys
+         5. 将公钥发布到 PGP 密钥服务器
+         		gpg －－keyserver hkp://pool.sks-keyservers.net －－send－keys xxxxxxx
+         6. 查询公钥是否发布成功
+         		gpg －－keyserver hkp://pool.sks-keyservers.net －－recv－keys xxxxxxx
+          -->
+         <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-gpg-plugin</artifactId>
+              <version>1.6</version>
+              <executions>
+                <execution>
+                    <phase>verify</phase>
+                    <goals>
+                         <goal>sign</goal>
+                    </goals>
+                </execution>
+              </executions>
+         </plugin>
+    </plugins>
+</build>
+   
+
+	<!--
+	setting.xml中
+	sonatype账号的用户名与密码来配置,id对应snapshotRepository的id
+		<settings>
+		．．．
+		    <servers>
+	        <server>
+	            <id>oss</id>
+	            <username>用户名</username>
+	            <password>密码</password>
+	        </server>
+	    </servers>
+	    ．．．
+	</settings>
+	 -->
+    <distributionManagement>
+                <snapshotRepository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+      </distributionManagement>
+      
+      <!-- mvn clean deploy -Dgpg.passphrase=xxxxxx -->
+</project>

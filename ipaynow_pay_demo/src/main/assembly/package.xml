@@ -1,0 +1,55 @@
+<assembly>
+    <id>bin</id>
+    <!-- 最终打包成一个用于发布的zip文件 -->
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <dependencySets>
+        <dependencySet>
+            <useProjectArtifact>true</useProjectArtifact><!-- 当前项目构件是否包含在这个依赖集合里 -->
+            <outputDirectory>lib</outputDirectory><!-- 打包进zip文件的lib目录 -->
+            <unpack>false</unpack><!-- 不解压第三方jar -->
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+    
+        <!-- 把项目自己编译出来的jar文件，打包进zip文件的lib目录 -->
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>lib</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+    
+        <!-- 把项目的配置文件，打包进zip文件的cfg目录 -->
+        <fileSet>
+            <directory>${project.basedir}\src\main\resource</directory>
+            <outputDirectory>cfg</outputDirectory>
+            <includes>
+                <include>config/properties/*.miniserver</include>
+                <include>log4j.properties</include>
+            </includes>
+        </fileSet>
+        
+        <!-- 把项目的脚本文件目录（ src/main/scripts ）中的启动脚本文件，打包进zip文件的跟目录 -->
+        <fileSet>
+            <directory>${project.basedir}\src\main\scripts</directory>
+            <outputDirectory>scripts</outputDirectory>
+            <includes>
+                <include>*.sh</include>
+            </includes>
+        </fileSet>
+        
+        <!-- 把项目相关的说明文件，打包进zip文件的根目录 
+        <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                 <include>README.md</include>
+            </includes>
+        </fileSet>-->
+    </fileSets>
+</assembly>
