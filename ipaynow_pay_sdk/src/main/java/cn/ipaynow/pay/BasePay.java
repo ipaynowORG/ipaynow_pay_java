@@ -15,7 +15,6 @@ public class BasePay {
     private static final String URL = "https://pay.ipaynow.cn/";
 
 
-
     /**
      * @param channelAuthCode  支付授权码(被扫)
      * @param consumerCreateIp 用户支付IP(微信H5)
