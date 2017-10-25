@@ -484,13 +484,6 @@ public class PaySdk extends BasePay {
         return result;
     }
 
-
-
-
-
-
-
-
 //&funcode=MQ002
 //&version=1.0.0
 //&appId=150753086263684
@@ -520,4 +513,200 @@ public class PaySdk extends BasePay {
 //&responseMsg=E000#成功[成功]
 //&signType=MD5
 //&signature=ba6e58581182f4023ff9b684bbdc8623
+
+
+
+
+
+
+
+
+
+
+
+    public static void main(String [] args){
+//        System.out.println(new PaySdk().refundOrder("150753086263684","zHGKLmQaU9PLMEGObyubsV5uhDAeYVqQ","aPU0Z1IfBDnqT",1,"somereason"));
+//        amount=1&appId=150753086263684&funcode=R001&mhtCharset=UTF-8&mhtOrderNo=aPU0Z1IfBDnqT&mhtRefundNo=u7FWOZ8vKprAyktUFCvA&nowPayOrderNo=&reason=somereason&responseCode=&responseMsg=&responseTime=20171025191045&signType=MD5&signature=de17edd67091728c3df94fdf0f6ab0f7&tradeStatus=A002
+
+        System.out.println(new PaySdk().refundQuery("150753086263684","zHGKLmQaU9PLMEGObyubsV5uhDAeYVqQ","u7FWOZ8vKprAyktUFCvA"));
+//        amount=&appId=150753086263684&funcode=Q001&mhtCharset=UTF-8&mhtOrderNo=&mhtRefundNo=u7FWOZ8vKprAyktUFCvA&nowPayOrderNo=&reason=&responseCode=&responseMsg=&responseTime=20171025191320&signType=MD5&signature=fd1e340dbb81e198ddaad3f0c720195f&tradeStatus=A002
+
+    }
+
+
+    /**
+     * 退款
+     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param mhtOrderNo    商户订单号
+     * @param amount    退款金额
+     * @param reason    退款原因
+     * @return
+     */
+    public String refundOrder(String appId,String appKey,String mhtOrderNo,Integer amount,String reason){
+        Map<String,String> map = new HashMap<>();
+
+        map.put("funcode","R001");
+        map.put("appId",appId);
+        map.put("mhtOrderNo",mhtOrderNo);
+        map.put("mhtRefundNo", RandomUtil.getRandomStr(20));
+        map.put("amount",String.valueOf(amount));
+        if(reason != null && !reason.trim().equals("")) {
+            map.put("reason", reason);
+        }
+        map.put("mhtCharset","UTF-8");
+        map.put("signType","MD5");
+
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        map.put("mhtSignature",sign);
+
+        String content = "";
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            content += entry.getKey()+"=";
+            try {
+                content += URLEncoder.encode(entry.getValue(),"UTF-8")+"&";
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        content = content.substring(0,content.length()-1);
+        String result = null;
+        try {
+            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundOrder",content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    /**
+     * 退款查询
+     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param mhtRefundNo   商户退款单号
+     * @return
+     */
+    public String refundQuery(String appId,String appKey,String mhtRefundNo){
+        Map<String,String> map = new HashMap<>();
+
+        map.put("funcode","Q001");
+        map.put("appId",appId);
+        map.put("mhtRefundNo",mhtRefundNo);
+        map.put("mhtCharset","UTF-8");
+        map.put("signType","MD5");
+
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        map.put("mhtSignature",sign);
+
+        String content = "";
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            content += entry.getKey()+"=";
+            try {
+                content += URLEncoder.encode(entry.getValue(),"UTF-8")+"&";
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        content = content.substring(0,content.length()-1);
+        String result = null;
+        try {
+            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundQuery",content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+
+
+
+    /**
+     * 撤销(只能撤销当天的交易,且无论成功失败(逻辑包含退款))
+     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param mhtOrderNo    商户订单号
+     * @param reason    退款原因
+     * @return
+     */
+    public String backOrder(String appId,String appKey,String mhtOrderNo,String reason){
+        Map<String,String> map = new HashMap<>();
+
+        map.put("funcode","R002");
+        map.put("appId",appId);
+        map.put("mhtOrderNo",mhtOrderNo);
+        map.put("mhtRefundNo", RandomUtil.getRandomStr(20));
+
+        if(reason != null && !reason.trim().equals("")) {
+            map.put("reason", reason);
+        }
+        map.put("mhtCharset","UTF-8");
+        map.put("signType","MD5");
+
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        map.put("mhtSignature",sign);
+
+        String content = "";
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            content += entry.getKey()+"=";
+            try {
+                content += URLEncoder.encode(entry.getValue(),"UTF-8")+"&";
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        content = content.substring(0,content.length()-1);
+        String result = null;
+        try {
+            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundOrder",content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+
+
+
+    /**
+     * 撤销查询
+     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param mhtRefundNo   商户退款单号
+     * @return
+     */
+    public String backQuery(String appId,String appKey,String mhtRefundNo){
+        Map<String,String> map = new HashMap<>();
+
+        map.put("funcode","Q002");
+        map.put("appId",appId);
+        map.put("mhtRefundNo",mhtRefundNo);
+        map.put("mhtCharset","UTF-8");
+        map.put("signType","MD5");
+
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        map.put("mhtSignature",sign);
+
+        String content = "";
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            content += entry.getKey()+"=";
+            try {
+                content += URLEncoder.encode(entry.getValue(),"UTF-8")+"&";
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        content = content.substring(0,content.length()-1);
+        String result = null;
+        try {
+            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundQuery",content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
