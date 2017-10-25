@@ -1,5 +1,8 @@
 package cn.ipaynow.pay;
 
+import cn.ipaynow.pay.sdk.req.App;
+import cn.ipaynow.pay.sdk.req.OrderDetail;
+import cn.ipaynow.pay.sdk.req.OrderDetail4WxApp;
 import cn.ipaynow.util.*;
 
 import java.io.UnsupportedEncodingException;
@@ -18,18 +21,19 @@ public class BasePay {
     /**
      * @param channelAuthCode  支付授权码(被扫)
      * @param consumerCreateIp 用户支付IP(微信H5)
-     * @param appId 应用ID
-     * @param appKey 应用KEY
-     * @param mhtOrderName 商品名称
-     * @param mhtOrderDetail 商品详情
-     * @param mhtOrderAmt 金额(分)
+     * @param app
+     * @param mhtSubMchId 服务商(闪慧)模式的门店ID
+     * @param orderDetail
      * @param deviceType 设备类型
+     * @param mhtSubAppId 对于微信公众号,子号对应多个公众号的时候必填
+     * @param mhtReserved 商户保留域,平台类商户使用(平台类商户在使用微信支付时，需要上送mchBankId字段，值为在现在支付备案的子商户编号；格式：mchBankId=123&商户保留域参数。)
      * @param notifyUrl 后台通知地址
      * @param frontNotifyUrl 前台通知地址
      * @param payChannelType 微信支付宝手Q等
      */
-    protected String pay(String channelAuthCode,String consumerCreateIp,String appId,String appKey,String mhtOrderName,String mhtOrderDetail , Integer mhtOrderAmt,String deviceType
-            ,String notifyUrl,String frontNotifyUrl,String payChannelType,Integer outputType){
+    protected String pay(App app, OrderDetail orderDetail,String channelAuthCode, String consumerCreateIp, String mhtSubMchId, String deviceType,
+                         String mhtSubAppId, String consumerId, String mhtReserved
+            , String notifyUrl, String frontNotifyUrl, String payChannelType, Integer outputType){
 
         Map<String,String> map = new HashMap<>();
         if(channelAuthCode != null && !channelAuthCode.equals("")){
@@ -42,7 +46,7 @@ public class BasePay {
         map.put("funcode","WP001");
         map.put("version","1.0.0");
         map.put("mhtCurrencyType","156");//人民币
-        map.put("mhtOrderType","01");//交易类型-普通消费
+        map.put("mhtOrderType","01");//交易类型-目前这个字段没有意义(交易已经通过后续逻辑获取类型)
         map.put("mhtOrderTimeOut","2000");//订单超时时间
         map.put("mhtCharset","UTF-8");
         map.put("mhtSignType","MD5");
@@ -51,23 +55,49 @@ public class BasePay {
         if(outputType != null) {
             map.put("outputType", String.valueOf(outputType));
         }
+        if(mhtSubMchId != null && !mhtSubMchId.trim().equals("")){
+            map.put("mhtSubMchId", mhtSubMchId);
+        }
+        if(orderDetail.getMhtGoodsTag() != null && !orderDetail.getMhtGoodsTag().trim().equals("")){
+            map.put("mhtGoodsTag", orderDetail.getMhtGoodsTag());
+        }
+        //微信小程序
+        if(orderDetail instanceof OrderDetail4WxApp){
+            if(((OrderDetail4WxApp)orderDetail).getDiscountAmt() != null){
+                map.put("discountAmt", String.valueOf(((OrderDetail4WxApp)orderDetail).getDiscountAmt()));
+            }
+            if(((OrderDetail4WxApp)orderDetail).getOriMhtOrderAmt() != null){
+                map.put("oriMhtOrderAmt", String.valueOf(((OrderDetail4WxApp)orderDetail).getOriMhtOrderAmt()));
+            }
+        }
 
+        if(mhtSubAppId != null && !mhtSubAppId.trim().equals("")){
+            map.put("mhtSubAppId", mhtSubAppId);
+        }
+        if(consumerId != null && !consumerId.trim().equals("")){
+            map.put("consumerId", consumerId);
+        }
+        if(mhtReserved != null && !mhtReserved.trim().equals("")){
+            map.put("mhtReserved", mhtSubAppId);
+        }
 
-        map.put("appId",appId);
+        map.put("appId",app.getAppId());
         map.put("mhtOrderNo", RandomUtil.getRandomStr(13));//订单号
-        map.put("mhtOrderName",mhtOrderName);
-        map.put("mhtOrderAmt",String.valueOf(mhtOrderAmt));//金额
-        map.put("mhtOrderDetail",mhtOrderDetail);
-        map.put("notifyUrl",notifyUrl);
+        map.put("mhtOrderName",orderDetail.getMhtOrderName());
+        map.put("mhtOrderAmt",String.valueOf(orderDetail.getMhtOrderAmt()));//金额
+        map.put("mhtOrderDetail",orderDetail.getMhtOrderDetail());
+        if(notifyUrl != null && !notifyUrl.equals("")){
+            map.put("notifyUrl",notifyUrl);
+        }
         if(frontNotifyUrl != null && !frontNotifyUrl.equals("")){
             map.put("frontNotifyUrl", frontNotifyUrl);
         }
         map.put("deviceType",deviceType);
         map.put("payChannelType",payChannelType);//13微信 12支付宝 25手Q
 
-        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(app.getAppKey(),"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
-        map.put("appKey",appKey);
+        map.put("appKey",app.getAppKey());
 
         String content = "";
         for (Map.Entry<String, String> entry : map.entrySet()) {

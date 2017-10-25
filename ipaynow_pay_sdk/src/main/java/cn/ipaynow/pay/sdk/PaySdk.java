@@ -4,6 +4,7 @@ package cn.ipaynow.pay.sdk;
 import cn.ipaynow.pay.BasePay;
 import cn.ipaynow.pay.sdk.req.App;
 import cn.ipaynow.pay.sdk.req.OrderDetail;
+import cn.ipaynow.pay.sdk.req.OrderDetail4WxApp;
 import cn.ipaynow.pay.sdk.req.ResultType;
 import cn.ipaynow.pay.sdk.resp.Result;
 import cn.ipaynow.pay.sdk.resp.ResultScan05;
@@ -28,15 +29,15 @@ public class PaySdk extends BasePay {
      * 微信被扫支付
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
+     * @param mhtSubAppId 微信子号对应多个公众号的时候必填,如果只对应一个公众号则不传
      * @param notifyUr 后台通知地址
      * @param channelAuthCode 支付码
      * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
      */
-    public ResultScan05 wx_scan_05(App app, OrderDetail orderDetail, String notifyUr, String channelAuthCode){
-        String resp = pay(channelAuthCode,null,app.getAppId(),app.getAppKey(),
-                orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "05",notifyUr,"","13",null);
+    public ResultScan05 wx_scan_05(App app, OrderDetail orderDetail,String mhtSubAppId, String notifyUr, String channelAuthCode){
+        String resp = pay(app, orderDetail,channelAuthCode,null,null,
+                "05",mhtSubAppId,null,null,notifyUr,"","13",null);
 
         ResultScan05 resultScan05 = new ResultScan05();
 
@@ -70,14 +71,14 @@ public class PaySdk extends BasePay {
      * 支付宝被扫支付
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
      * @param notifyUr 后台通知地址
      * @param channelAuthCode 支付码
      * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
      */
     public ResultScan05 ali_scan_05(App app, OrderDetail orderDetail, String notifyUr, String channelAuthCode) {
-        String resp = pay(channelAuthCode,null,app.getAppId(),app.getAppKey(),orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "05",notifyUr,null,"12",null);
+        String resp = pay(app, orderDetail,channelAuthCode,null,null,
+                "05",null,null,null,notifyUr,null,"12",null);
 
         ResultScan05 resultScan05 = new ResultScan05();
 
@@ -129,15 +130,16 @@ public class PaySdk extends BasePay {
      * 微信主扫支付
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
+     * @param mhtSubAppId 微信子号对应多个公众号的时候必填,如果只对应一个公众号则不传
      * @param notifyUrl 后台通知地址
      * @param resultType PIC: tn为二维码图片(data:..格式)  URL : tn为支付链接
      * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间
      * tn 二维码图片, 或者支付链接
      */
-    public ResultScan08 wx_scan_08(App app, OrderDetail orderDetail, String notifyUrl,ResultType resultType){
-        String resp = pay(null,null,app.getAppId(),app.getAppKey(),orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "08",notifyUrl,"","13",resultType == ResultType.PIC?0:1);
+    public ResultScan08 wx_scan_08(App app, OrderDetail orderDetail, String mhtSubAppId,String notifyUrl,ResultType resultType){
+        String resp = pay(app, orderDetail,null,null,null,
+                "08",mhtSubAppId,null,null,notifyUrl,"","13",resultType == ResultType.PIC?0:1);
         ResultScan08 resultScan08 = new ResultScan08();
 
         Map<String,String> map = form2Map(resp);
@@ -160,15 +162,15 @@ public class PaySdk extends BasePay {
      * 支付宝主扫支付
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
      * @param notifyUrl 后台通知地址
      * @param resultType PIC: tn为二维码图片(data:..格式)  URL : tn为支付链接
      * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间
      * tn 二维码图片, 或者支付链接
      */
     public ResultScan08 ali_scan_08(App app, OrderDetail orderDetail, String notifyUrl,ResultType resultType) {
-        String resp = pay(null,null,app.getAppId(),app.getAppKey(),orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "08",notifyUrl,null,"12",resultType == ResultType.PIC?0:1);
+        String resp = pay(app, orderDetail,null,null,null,
+                "08",null,null,null,notifyUrl,null,"12",resultType == ResultType.PIC?0:1);
         ResultScan08 resultScan08 = new ResultScan08();
         Map<String,String> map = form2Map(resp);
         Result result = getResultByMap(map,app);
@@ -207,32 +209,62 @@ public class PaySdk extends BasePay {
      * 微信公众号支付
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
      * @param notifyUrl 后台通知地址
      * @param frontNotifyUrl 前台页面跳转地址
      * @return  重定向地址
      */
     public String wx_p_account(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl){
-        return pay(null,null,app.getAppId(),app.getAppKey(),orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "0600",notifyUrl,frontNotifyUrl,"13",0);
+        return pay(app, orderDetail,null,null,null,
+                "0600",null,null,null,notifyUrl,frontNotifyUrl,"13",0);
     }
+
+
+    /**
+     * 微信公众号支付(获取支付要素)
+     * @param app appId(应用ID)和appKey ,
+     * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
+     * @param mhtSubAppId 微信子号对应多个公众号的时候必填,如果只对应一个公众号则不传
+     * @param consumerId 消费者ID,相当于公众号下的OPENID
+     * @return
+     * 返回支付信息，格式为:
+     * timeStamp%3dtimeStamp%26nonceStr%3dnonceStr%26prepay_id%3dprepay_id%26wxAppId%3dwxAppId%26paySign%3dpaySign%26signType%3dMD5(需要URLDecode)
+     */
+    public String wx_p_account_getParams(App app, OrderDetail orderDetail,String mhtSubAppId,String consumerId){
+        return pay(app, orderDetail,null,null,null,
+                "0600",mhtSubAppId,consumerId,null,null,null,"13",1);
+    }
+
+
 
     /**
      * 支付宝公众号支付
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
      * @param notifyUrl 后台通知地址
      * @param frontNotifyUrl 前台页面跳转地址
      * @return  重定向地址
      */
     public  String ali_p_account(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl) {
-        return pay(null,null,app.getAppId(),app.getAppKey(),
-                orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "0600",notifyUrl,frontNotifyUrl,"12",0);
+        return pay(app, orderDetail,null,null,null,
+                "0600",null,null,null,notifyUrl,frontNotifyUrl,"12",0);
     }
 
-
+    /**
+     * 支付宝公众号支付(获取支付要素)
+     * @param app appId(应用ID)和appKey ,
+     * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
+     * @param consumerId 消费者ID,相对于支付宝账号的userid
+     * 返回支付信息，格式为:
+     * timeStamp%3dtimeStamp%26nonceStr%3dnonceStr%26prepay_id%3dprepay_id%26wxAppId%3dwxAppId%26paySign%3dpaySign%26signType%3dMD5(需要URLDecode)
+     */
+    public  String ali_p_account_getParams(App app, OrderDetail orderDetail,String consumerId) {
+        return pay(app,orderDetail,null,null,null,
+                "0600",null,consumerId,null,null,null,"12",1);
+    }
 
 
 
@@ -249,15 +281,18 @@ public class PaySdk extends BasePay {
      * 微信H5
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
      * @param consumerCreateIp 用户支付IP
      * @param notifyUrl 后台通知地址
      * @param frontNotifyUrl 前台页面跳转地址
      * @return  重定向地址
      */
     public String wx_h5(App app, OrderDetail orderDetail,String consumerCreateIp,String notifyUrl,String frontNotifyUrl){
-        String result = pay(null,consumerCreateIp,app.getAppId(),app.getAppKey(),orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "0601",notifyUrl,frontNotifyUrl,"13",1);
+        String result = pay(app,orderDetail,null,consumerCreateIp,null,
+                "0601",null,null,null,notifyUrl,frontNotifyUrl,"13",1);
+        //outType 0 tn 获取微信支付链接,支付后不跳转
+        //outType 1 tn 获取现在支付链接,调起微信支付,支付后按照frontNotifyUrl跳转
+        //outTpye 2 直接返回现在支付链接（和outType = 1 中的tn相同），无需从tn中获取
         Map<String,String> map = form2Map(result);
         return map.get("tn");
     }
@@ -269,18 +304,25 @@ public class PaySdk extends BasePay {
      * 支付宝H5
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
      * @param notifyUrl 后台通知地址
      * @param frontNotifyUrl 前台页面跳转地址
      * @return  重定向地址
      */
     public  String ali_h5(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl) {
-        String result = pay(null,null,app.getAppId(),app.getAppKey(),orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "0601",notifyUrl,frontNotifyUrl,"12",1);
+        String result = pay(app,orderDetail,null,null,null,
+                "0601",null,null,null,notifyUrl,frontNotifyUrl,"12",1);
 
         Map<String,String> map = form2Map(result);
         return map.get("tn");
     }
+
+
+
+
+
+
+
 
 
 
@@ -291,16 +333,59 @@ public class PaySdk extends BasePay {
      * 支付宝网页web
      * @param app appId(应用ID)和appKey ,
      * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param orderDetail 商品名称,商品描述,商品价格(单位分)
+     * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
      * @param notifyUrl 后台通知地址
      * @return  重定向地址
      */
     public String ali_web(App app, OrderDetail orderDetail, String notifyUrl){
-        String result = pay(null,null,app.getAppId(),app.getAppKey(),orderDetail.getMhtOrderName(),orderDetail.getMhtOrderDetail(),orderDetail.getMhtOrderAmt(),
-                "04",notifyUrl,null,"12",0);
+        String result = pay(app,orderDetail,null,null,null,
+                "04",null,null,null,notifyUrl,null,"12",0);
+        //tn 0 返回支付宝跳转地址，tn获取
+        // tn 1 直接返回支付宝跳转地址，无需tn获取
         Map<String,String> map = form2Map(result);
         return map.get("tn");
     }
+
+
+
+
+    /**
+     * 微信小程序支付
+     * @param app appId(应用ID)和appKey ,
+     * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param orderDetail   商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动),
+     * @param consumerId  用户openId
+     * @param notifyUrl 后台通知地址
+     * @return  支付要素
+     */
+    public String wx_app(App app, OrderDetail4WxApp orderDetail, String consumerId,String notifyUrl){
+        String result = pay(app,orderDetail,null,null,null,
+                "14",null,consumerId,null,notifyUrl,null,"13",1);
+        //tn 0 返回支付宝跳转地址，tn获取
+        // tn 1 直接返回支付宝跳转地址，无需tn获取
+        Map<String,String> map = form2Map(result);
+        return map.get("tn");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

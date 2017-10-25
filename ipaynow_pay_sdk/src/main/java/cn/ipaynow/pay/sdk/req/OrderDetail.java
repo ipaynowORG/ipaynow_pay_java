@@ -5,15 +5,26 @@ package cn.ipaynow.pay.sdk.req;
  */
 public class OrderDetail {
 
-    public OrderDetail(String mhtOrderName, String mhtOrderDetail, Integer mhtOrderAmt) {
+    public OrderDetail(String mhtOrderName, String mhtOrderDetail, Integer mhtOrderAmt,String mhtGoodsTag) {
         this.mhtOrderName = mhtOrderName;
         this.mhtOrderDetail = mhtOrderDetail;
         this.mhtOrderAmt = mhtOrderAmt;
+        this.mhtGoodsTag = mhtGoodsTag;
     }
 
     private String mhtOrderName;
     private String mhtOrderDetail;
     private  Integer mhtOrderAmt;
+    private String mhtGoodsTag;
+
+
+    public String getMhtGoodsTag() {
+        return mhtGoodsTag;
+    }
+
+    public void setMhtGoodsTag(String mhtGoodsTag) {
+        this.mhtGoodsTag = mhtGoodsTag;
+    }
 
     public String getMhtOrderName() {
         return mhtOrderName;

@@ -38,7 +38,8 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         ResultScan05 resultScan05 = paySdk.wx_scan_05(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
+                map.get("mhtSubAppId"),
                 map.get("notifyUrl"),
                 map.get("channelAuthCode"));
 
@@ -77,7 +78,8 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         ResultScan08 resultScan08 = paySdk.wx_scan_08(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
+                map.get("mhtSubAppId"),
                 map.get("notifyUrl"),
                 ResultType.PIC);
 
@@ -116,7 +118,7 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         String redirectUrl = paySdk.wx_p_account(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
                 map.get("notifyUrl"),
                 map.get("frontNotifyUrl"));
         return new Redirect(redirectUrl);
@@ -150,7 +152,7 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         ResultScan08 resultScan08 = paySdk.ali_scan_08(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
                 map.get("notifyUrl"),ResultType.PIC);
 
 
@@ -188,7 +190,7 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         ResultScan05 resultScan05 = paySdk.ali_scan_05(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
                 map.get("notifyUrl"),
                 map.get("channelAuthCode"));
 
@@ -205,7 +207,7 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         String redirectUrl = paySdk.ali_p_account(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
                 map.get("notifyUrl"),
                 map.get("frontNotifyUrl"));
 
@@ -249,7 +251,7 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         String result =  paySdk.ali_h5(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
                 map.get("notifyUrl"),
                 map.get("frontUrl"));
 
@@ -265,7 +267,7 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         String result =  paySdk.wx_h5(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
                 map.get("consumerCreateIp"),
                 map.get("notifyUrl"),
                 map.get("frontUrl"));
@@ -314,7 +316,7 @@ public class PaytestImpl implements Controll {
         Map<String,String> map = CommonUtil.form2Map(postDate1);
         String result =  paySdk.ali_web(
                 new App(map.get("appId"),map.get("appKey")),
-                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt"))),
+                new OrderDetail(map.get("mhtOrderName"),map.get("mhtOrderDetail"),Integer.parseInt(map.get("mhtOrderAmt")),map.get("mhtGoodsTag")),
                 map.get("notifyUrl"));
         if(result != null) {
             return new Redirect(URLDecoder.decode(result, "UTF-8"));

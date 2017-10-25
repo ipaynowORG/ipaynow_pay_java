@@ -11,7 +11,9 @@ public class CommonUtil {
     public static Map form2Map(String s) {
         Map<String,String> result = new HashMap();
         for(String tmp : s.split("&")){
-            result.put(tmp.split("=")[0],tmp.split("=")[1]);
+            if(tmp.split("=").length == 2) {
+                result.put(tmp.split("=")[0], tmp.split("=")[1]);
+            }
         }
         return result;
     }
