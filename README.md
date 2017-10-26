@@ -217,15 +217,65 @@ Maven坐标如下
 
 - 商户支付订单查询
 
-            /**
-             * 商户支付订单查询
-             * @param mhtOrderNo    商户订单号
-             * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-             * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-             * @param deviceType    被扫05，主扫08，公众号传0600，h5传0601，网页04
-             * @return
-             */
-            public String queryOrder(String mhtOrderNo,String appId,String appKey,String deviceType)
+        /**
+         * 商户支付订单查询
+         * @param mhtOrderNo    商户订单号
+         * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param deviceType    被扫05，主扫08，公众号传0600，h5传0601，网页04
+         * @return
+         */
+        public Map queryOrder(String mhtOrderNo,String appId,String appKey,String deviceType)
+
+
+
+- 退款
+
+        /**
+         * 退款
+         * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param mhtOrderNo    商户订单号
+         * @param amount    退款金额
+         * @param reason    退款原因
+         * @return
+         */
+        public Map refundOrder(String appId,String appKey,String mhtOrderNo,Integer amount,String reason)
+
+
+- 退款查询
+
+        /**
+         * 退款查询
+         * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param mhtRefundNo   商户退款单号
+         * @return
+         */
+        public Map refundQuery(String appId,String appKey,String mhtRefundNo)
+
+- 撤销
+
+        /**
+         * 撤销(只能撤销当天的交易,且无论成功失败(逻辑包含退款))
+         * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param mhtOrderNo    商户订单号
+         * @param reason    退款原因
+         * @return
+         */
+        public Map backOrder(String appId,String appKey,String mhtOrderNo,String reason)
+
+- 撤销查询
+
+        /**
+         * 撤销查询
+         * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+         * @param mhtRefundNo   商户退款单号
+         * @return
+         */
+        public Map backQuery(String appId,String appKey,String mhtRefundNo)
 
 
 ## 3. DEMO说明 ##

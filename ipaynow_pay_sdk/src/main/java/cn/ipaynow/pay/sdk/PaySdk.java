@@ -450,7 +450,7 @@ public class PaySdk extends BasePay {
      * @param deviceType    被扫05，主扫08，公众号传0600，h5传0601，网页04
      * @return
      */
-    public String queryOrder(String mhtOrderNo,String appId,String appKey,String deviceType){
+    public Map queryOrder(String mhtOrderNo,String appId,String appKey,String deviceType){
 
         Map<String,String> map = new HashMap<>();
 
@@ -481,7 +481,7 @@ public class PaySdk extends BasePay {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return form2Map(result);
     }
 
 //&funcode=MQ002
@@ -525,11 +525,13 @@ public class PaySdk extends BasePay {
 
 
     public static void main(String [] args){
-//        System.out.println(new PaySdk().refundOrder("150753086263684","zHGKLmQaU9PLMEGObyubsV5uhDAeYVqQ","aPU0Z1IfBDnqT",1,"somereason"));
-//        amount=1&appId=150753086263684&funcode=R001&mhtCharset=UTF-8&mhtOrderNo=aPU0Z1IfBDnqT&mhtRefundNo=u7FWOZ8vKprAyktUFCvA&nowPayOrderNo=&reason=somereason&responseCode=&responseMsg=&responseTime=20171025191045&signType=MD5&signature=de17edd67091728c3df94fdf0f6ab0f7&tradeStatus=A002
+//        System.out.println(new PaySdk().refundOrder("150753082825470","8jTST7ywIBY0QQ3RlcxWEl08Xj9gaYyQ","sC31JGZh4XD6e",1,"somereason"));
 
-        System.out.println(new PaySdk().refundQuery("150753086263684","zHGKLmQaU9PLMEGObyubsV5uhDAeYVqQ","u7FWOZ8vKprAyktUFCvA"));
-//        amount=&appId=150753086263684&funcode=Q001&mhtCharset=UTF-8&mhtOrderNo=&mhtRefundNo=u7FWOZ8vKprAyktUFCvA&nowPayOrderNo=&reason=&responseCode=&responseMsg=&responseTime=20171025191320&signType=MD5&signature=fd1e340dbb81e198ddaad3f0c720195f&tradeStatus=A002
+//        System.out.println(new PaySdk().refundQuery("150753082825470","8jTST7ywIBY0QQ3RlcxWEl08Xj9gaYyQ","aB4SafbCGN1HN3mKUROP"));
+
+//        System.out.println(new PaySdk().backOrder("150753082825470","8jTST7ywIBY0QQ3RlcxWEl08Xj9gaYyQ","6Idked0OrrGnY","somereason"));
+
+//        System.out.println(new PaySdk().backQuery("150753082825470","8jTST7ywIBY0QQ3RlcxWEl08Xj9gaYyQ","lftc2Ca019HdpFKUuXFQ"));
 
     }
 
@@ -543,7 +545,7 @@ public class PaySdk extends BasePay {
      * @param reason    退款原因
      * @return
      */
-    public String refundOrder(String appId,String appKey,String mhtOrderNo,Integer amount,String reason){
+    public Map refundOrder(String appId,String appKey,String mhtOrderNo,Integer amount,String reason){
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","R001");
@@ -555,10 +557,11 @@ public class PaySdk extends BasePay {
             map.put("reason", reason);
         }
         map.put("mhtCharset","UTF-8");
-        map.put("signType","MD5");
+
 
         String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
+        map.put("signType","MD5");
 
         String content = "";
         for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -576,7 +579,9 @@ public class PaySdk extends BasePay {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return form2Map(result);
+//        amount=1&appId=150753082825470&funcode=R001&mhtCharset=UTF-8&mhtOrderNo=sC31JGZh4XD6e&mhtRefundNo=aB4SafbCGN1HN3mKUROP&nowPayOrderNo=200801201710261101140355397&reason=somereason&responseCode=R000&responseMsg=%E6%88%90%E5%8A%9F&responseTime=20171026110114&signType=MD5&signature=913601d72cc265ee6b4351b3e3f6ec00&tradeStatus=A004
+
     }
 
 
@@ -587,17 +592,18 @@ public class PaySdk extends BasePay {
      * @param mhtRefundNo   商户退款单号
      * @return
      */
-    public String refundQuery(String appId,String appKey,String mhtRefundNo){
+    public Map refundQuery(String appId,String appKey,String mhtRefundNo){
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","Q001");
         map.put("appId",appId);
         map.put("mhtRefundNo",mhtRefundNo);
         map.put("mhtCharset","UTF-8");
-        map.put("signType","MD5");
+
 
         String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
+        map.put("signType","MD5");
 
         String content = "";
         for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -615,7 +621,9 @@ public class PaySdk extends BasePay {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return form2Map(result);
+//        amount=&appId=150753082825470&funcode=Q001&mhtCharset=UTF-8&mhtOrderNo=&mhtRefundNo=aB4SafbCGN1HN3mKUROP&nowPayOrderNo=200801201710261101140355397&reason=&responseCode=R000&responseMsg=%E6%88%90%E5%8A%9F&responseTime=20171026110452&signType=MD5&signature=ed77af86a394037e16ce5bac5ce7de5b&tradeStatus=A001
+
     }
 
 
@@ -631,7 +639,7 @@ public class PaySdk extends BasePay {
      * @param reason    退款原因
      * @return
      */
-    public String backOrder(String appId,String appKey,String mhtOrderNo,String reason){
+    public Map backOrder(String appId,String appKey,String mhtOrderNo,String reason){
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","R002");
@@ -643,10 +651,11 @@ public class PaySdk extends BasePay {
             map.put("reason", reason);
         }
         map.put("mhtCharset","UTF-8");
-        map.put("signType","MD5");
+
 
         String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
+        map.put("signType","MD5");
 
         String content = "";
         for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -664,7 +673,9 @@ public class PaySdk extends BasePay {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return form2Map(result);
+//        amount=&appId=150753082825470&funcode=R002&mhtCharset=UTF-8&mhtOrderNo=6Idked0OrrGnY&mhtRefundNo=lftc2Ca019HdpFKUuXFQ&nowPayOrderNo=200802201710261108530355402&reason=somereason&responseCode=R000&responseMsg=%E6%88%90%E5%8A%9F&responseTime=20171026110853&signType=MD5&signature=5cca50410f20a31c2ea5b76f13375823&tradeStatus=A004
+
     }
 
 
@@ -679,17 +690,17 @@ public class PaySdk extends BasePay {
      * @param mhtRefundNo   商户退款单号
      * @return
      */
-    public String backQuery(String appId,String appKey,String mhtRefundNo){
+    public Map backQuery(String appId,String appKey,String mhtRefundNo){
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","Q002");
         map.put("appId",appId);
         map.put("mhtRefundNo",mhtRefundNo);
         map.put("mhtCharset","UTF-8");
-        map.put("signType","MD5");
 
         String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
+        map.put("signType","MD5");
 
         String content = "";
         for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -707,6 +718,7 @@ public class PaySdk extends BasePay {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return form2Map(result);
+//        amount=&appId=150753082825470&funcode=Q002&mhtCharset=UTF-8&mhtOrderNo=&mhtRefundNo=lftc2Ca019HdpFKUuXFQ&nowPayOrderNo=200802201710261108530355402&reason=&responseCode=R000&responseMsg=%E6%88%90%E5%8A%9F&responseTime=20171026111003&signType=MD5&signature=9cca5c1c06b9fa8dbcbbd706eb14e075&tradeStatus=A001
     }
 }
