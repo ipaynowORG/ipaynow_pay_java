@@ -8,6 +8,8 @@
 
 - 1.1.0 : 增加退款接口
 
+- 1.1.1 : 接口参数调整
+
 ## 1. 概述 ##
 
 ### 1.1 简介 ###
@@ -16,16 +18,16 @@
 
 ### 1.2 如何获取 ###
 
-[获取源码](https://github.com/ipaynow123/ipaynow_pay)
+[获取源码](https://github.com/ipaynowORG/ipaynow_pay)
 
-[demo源码](https://github.com/ipaynow123/ipaynow_pay)
+[demo源码](https://github.com/ipaynowORG/ipaynow_pay)
 
 Maven坐标如下
 
 	<dependency>
 	       <groupId>com.github.ipaynow</groupId>
            <artifactId>ipaynow_pay_sdk</artifactId>
-           <version>1.1.0</version>
+           <version>1.1.1</version>
 	</dependency>
 
 

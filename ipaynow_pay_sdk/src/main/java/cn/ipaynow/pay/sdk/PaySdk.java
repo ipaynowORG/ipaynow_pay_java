@@ -445,24 +445,24 @@ public class PaySdk extends BasePay {
     /**
      * 商户支付订单查询
      * @param mhtOrderNo    商户订单号
-     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param app appId(应用ID)和appKey ,
+     * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
      * @param deviceType    被扫05，主扫08，公众号传0600，h5传0601，网页04
      * @return
      */
-    public Map queryOrder(String mhtOrderNo,String appId,String appKey,String deviceType){
+    public Map queryOrder(String mhtOrderNo,App app,String deviceType){
 
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","MQ002");
         map.put("version","1.0.0");
         map.put("deviceType",deviceType);
-        map.put("appId",appId);
+        map.put("appId",app.getAppId());
         map.put("mhtOrderNo", mhtOrderNo);
         map.put("mhtCharset","UTF-8");
         map.put("mhtSignType","MD5");
 
-        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(app.getAppKey(),"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
 
         String content = "";
@@ -538,18 +538,18 @@ public class PaySdk extends BasePay {
 
     /**
      * 退款
-     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param app appId(应用ID)和appKey ,
+     * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKeyey
      * @param mhtOrderNo    商户订单号
-     * @param amount    退款金额
+     * @param amount    退款金额(分)
      * @param reason    退款原因
      * @return
      */
-    public Map refundOrder(String appId,String appKey,String mhtOrderNo,Integer amount,String reason){
+    public Map refundOrder(App app,String mhtOrderNo,Integer amount,String reason){
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","R001");
-        map.put("appId",appId);
+        map.put("appId",app.getAppId());
         map.put("mhtOrderNo",mhtOrderNo);
         map.put("mhtRefundNo", RandomUtil.getRandomStr(20));
         map.put("amount",String.valueOf(amount));
@@ -559,7 +559,7 @@ public class PaySdk extends BasePay {
         map.put("mhtCharset","UTF-8");
 
 
-        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(app.getAppKey(),"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
         map.put("signType","MD5");
 
@@ -587,21 +587,21 @@ public class PaySdk extends BasePay {
 
     /**
      * 退款查询
-     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param app appId(应用ID)和appKey ,
+     * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKeyey
      * @param mhtRefundNo   商户退款单号
      * @return
      */
-    public Map refundQuery(String appId,String appKey,String mhtRefundNo){
+    public Map refundQuery(App app,String mhtRefundNo){
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","Q001");
-        map.put("appId",appId);
+        map.put("appId",app.getAppId());
         map.put("mhtRefundNo",mhtRefundNo);
         map.put("mhtCharset","UTF-8");
 
 
-        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(app.getAppKey(),"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
         map.put("signType","MD5");
 
@@ -633,17 +633,17 @@ public class PaySdk extends BasePay {
 
     /**
      * 撤销(只能撤销当天的交易,且无论成功失败(逻辑包含退款))
-     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param app appId(应用ID)和appKey ,
+     * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKeyey
      * @param mhtOrderNo    商户订单号
      * @param reason    退款原因
      * @return
      */
-    public Map backOrder(String appId,String appKey,String mhtOrderNo,String reason){
+    public Map backOrder(App app,String mhtOrderNo,String reason){
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","R002");
-        map.put("appId",appId);
+        map.put("appId",app.getAppId());
         map.put("mhtOrderNo",mhtOrderNo);
         map.put("mhtRefundNo", RandomUtil.getRandomStr(20));
 
@@ -653,7 +653,7 @@ public class PaySdk extends BasePay {
         map.put("mhtCharset","UTF-8");
 
 
-        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(app.getAppKey(),"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
         map.put("signType","MD5");
 
@@ -685,20 +685,20 @@ public class PaySdk extends BasePay {
 
     /**
      * 撤销查询
-     * @param appId 商户的AppId,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
-     * @param appKey 商户的AppKey,https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
+     * @param app appId(应用ID)和appKey ,
+     * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKeyey
      * @param mhtRefundNo   商户退款单号
      * @return
      */
-    public Map backQuery(String appId,String appKey,String mhtRefundNo){
+    public Map backQuery(App app,String mhtRefundNo){
         Map<String,String> map = new HashMap<>();
 
         map.put("funcode","Q002");
-        map.put("appId",appId);
+        map.put("appId",app.getAppId());
         map.put("mhtRefundNo",mhtRefundNo);
         map.put("mhtCharset","UTF-8");
 
-        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(appKey,"UTF-8",null),"UTF-8",null);
+        String sign = SecretUtil.ToMd5(postFormLinkReport(map) +"&" + SecretUtil.ToMd5(app.getAppKey(),"UTF-8",null),"UTF-8",null);
         map.put("mhtSignature",sign);
         map.put("signType","MD5");
 
