@@ -6,6 +6,8 @@
 
 - 1.0.0 : 初稿
 
+- 1.1.0 : 增加退款接口
+
 ## 1. 概述 ##
 
 ### 1.1 简介 ###
@@ -23,7 +25,7 @@ Maven坐标如下
 	<dependency>
 	       <groupId>com.github.ipaynow</groupId>
            <artifactId>ipaynow_pay_sdk</artifactId>
-           <version>1.0.0</version>
+           <version>1.1.0</version>
 	</dependency>
 
 
