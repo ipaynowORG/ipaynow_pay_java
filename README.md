@@ -29,7 +29,7 @@ Maven坐标如下
 	<dependency>
 	       <groupId>com.github.ipaynow</groupId>
            <artifactId>ipaynow_pay_sdk</artifactId>
-           <version>1.1.1</version>
+           <version>1.1.2</version>
 	</dependency>
 
 
