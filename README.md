@@ -101,6 +101,7 @@ Maven坐标如下
 
 
 - 银联被扫支付
+
         /**
          * 银联被扫支付
          * @param app appId(应用ID)和appKey ,
