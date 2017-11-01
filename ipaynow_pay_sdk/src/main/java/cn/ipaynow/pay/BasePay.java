@@ -30,10 +30,11 @@ public class BasePay {
      * @param notifyUrl 后台通知地址
      * @param frontNotifyUrl 前台通知地址
      * @param payChannelType 微信支付宝手Q等
+     * @param mhtOrderNo 商户订单号
      */
     protected String pay(App app, OrderDetail orderDetail,String channelAuthCode, String consumerCreateIp, String mhtSubMchId, String deviceType,
                          String mhtSubAppId, String consumerId, String mhtReserved
-            , String notifyUrl, String frontNotifyUrl, String payChannelType, Integer outputType){
+            , String notifyUrl, String frontNotifyUrl, String payChannelType, Integer outputType,String mhtOrderNo){
 
         Map<String,String> map = new HashMap<>();
         if(channelAuthCode != null && !channelAuthCode.equals("")){
@@ -82,7 +83,11 @@ public class BasePay {
         }
 
         map.put("appId",app.getAppId());
-        map.put("mhtOrderNo", RandomUtil.getRandomStr(13));//订单号
+        if(mhtOrderNo != null && !mhtOrderNo.equals("")){
+            map.put("mhtOrderNo", mhtOrderNo);//订单号
+        }else{
+            map.put("mhtOrderNo", RandomUtil.getRandomStr(13));//订单号
+        }
         map.put("mhtOrderName",orderDetail.getMhtOrderName());
         map.put("mhtOrderAmt",String.valueOf(orderDetail.getMhtOrderAmt()));//金额
         map.put("mhtOrderDetail",orderDetail.getMhtOrderDetail());
