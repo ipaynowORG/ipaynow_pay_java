@@ -708,7 +708,8 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = HttpKit.postRequest("https://pay.ipaynow.cn",content);
+            result = httpsTookit.doPost("https://pay.ipaynow.cn",content,null,null,"UTF-8");
+//            result = HttpKit.postRequest("https://pay.ipaynow.cn",content);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -806,7 +807,8 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundOrder",content);
+            result = httpsTookit.doPost("https://pay.ipaynow.cn/refund/refundOrder",content,null,null,"UTF-8");
+//            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundOrder",content);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -848,7 +850,8 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundQuery",content);
+            result = httpsTookit.doPost("https://pay.ipaynow.cn/refund/refundQuery",content,null,null,"UTF-8");
+//            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundQuery",content);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -900,7 +903,8 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundOrder",content);
+            result = httpsTookit.doPost("https://pay.ipaynow.cn/refund/refundOrder",content,null,null,"UTF-8");
+//            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundOrder",content);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -945,7 +949,8 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundQuery",content);
+            result = httpsTookit.doPost("https://pay.ipaynow.cn/refund/refundQuery",content,null,null,"UTF-8");
+//            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundQuery",content);
         } catch (Exception e) {
             e.printStackTrace();
         }

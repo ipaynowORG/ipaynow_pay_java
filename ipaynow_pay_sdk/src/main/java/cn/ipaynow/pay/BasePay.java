@@ -4,10 +4,17 @@ import cn.ipaynow.pay.sdk.req.App;
 import cn.ipaynow.pay.sdk.req.OrderDetail;
 import cn.ipaynow.pay.sdk.req.OrderDetail4WxApp;
 import cn.ipaynow.util.*;
+import cn.ipaynow.util.httpkit.HttpsTookit;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.*;
 
 /**
@@ -17,6 +24,25 @@ public class BasePay {
 
     private static final String URL = "https://pay.ipaynow.cn/";
 
+    protected HttpsTookit httpsTookit;
+
+    public BasePay() {
+        try {
+            httpsTookit = new HttpsTookit(null,null);
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (CertificateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (UnrecoverableKeyException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param channelAuthCode  支付授权码(被扫)
@@ -116,7 +142,8 @@ public class BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = HttpKit.postRequest(URL,content);
+            result = httpsTookit.doPost(URL,content,null,null,"UTF-8");
+//            result = HttpKit.postRequest(URL,content);
         } catch (Exception e) {
             e.printStackTrace();
         }
