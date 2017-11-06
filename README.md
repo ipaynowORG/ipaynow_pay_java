@@ -113,9 +113,9 @@
 
 <h4 id='1.2'> 1.2 如何获取 </h4>
 
-[获取源码](https://github.com/ipaynowORG/ipaynow_pay)
+[获取源码](https://github.com/ipaynowORG/ipaynow_pay_java)
 
-[demo源码](https://github.com/ipaynowORG/ipaynow_pay)
+[demo源码](https://github.com/ipaynowORG/ipaynow_pay_java)
 
 Maven坐标如下
 
