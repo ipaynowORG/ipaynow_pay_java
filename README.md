@@ -12,16 +12,105 @@
 
 - 1.1.2 : sdk增加可选的商户订单号参数,支付订单查询分成多个方法,增加微信支付宝外的渠道方法
 
-+ httpclient
++ httpclient + 目录
 
 
-## 1. 概述 ##
 
-### 1.1 简介 ###
+## 目录 ##
+
+[1. 概述](#1)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[1.1 简介](#1.1)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[1.2 如何获取](#1.2)
+
+[2. API](#2)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1 聚合交易API](#2.1)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信被扫支付](#2.1.1)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[支付宝被扫支付](#2.1.2)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[手Q被扫支付](#2.1.3)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[京东被扫支付](#2.1.4)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[银联被扫支付](#2.1.5)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信主扫支付](#2.1.6)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[支付宝主扫支付](#2.1.7)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[手Q主扫支付](#2.1.8)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[京东主扫支付](#2.1.9)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[银联主扫支付](#2.1.10)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信公众号支付](#2.1.11)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信公众号支付(获取支付要素)](#2.1.12)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[支付宝公众号支付](#2.1.13)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[支付宝公众号支付(获取支付要素)](#2.1.14)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[手Q公众号支付](#2.1.15)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[手Q公众号支付(获取支付要素)](#2.1.16)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信H5](#2.1.17)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[支付宝H5](#2.1.18)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[银联H5](#2.1.19)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[招行一网通H5](#2.1.20)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[手Q H5](#2.1.21)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[支付宝网页web](#2.1.22)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[银联网页web](#2.1.23)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信小程序支付](#2.1.24)
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2 订单查询API](#2.2)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户被扫支付订单查询](#2.2.1)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户主扫支付订单查询](#2.2.2)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户公众号支付订单查询](#2.2.3)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户H5支付订单查询](#2.2.4)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户网页支付订单查询](#2.2.5)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户微信App支付订单查询](#2.2.6)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[2.3 退款API](#2.3)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[退款](#2.3.1)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[退款查询](#2.3.2)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[撤销](#2.3.3)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[撤销查询](#2.3.4)
+
+[3. DEMO](#3)
+
+
+<h2 id='1'> 1. 概述 </h2>
+
+<h4 id='1.1'> 1.1 简介 </h4>
 
 - 聚合支付SDK。
 
-### 1.2 如何获取 ###
+<h4 id='1.2'> 1.2 如何获取 </h4>
 
 [获取源码](https://github.com/ipaynowORG/ipaynow_pay)
 
@@ -39,10 +128,13 @@ Maven坐标如下
 
 
 
-## 2. API ##
+<h2 id='2'> 2. API </h2>
 
 业务客户端使用SDK的相关类: cn.ipaynow.pay.sdk.PaySdk
 
+<h4 id='2.1'> 2.1 聚合交易API </h4>
+
+<h5 id='2.1.1'></h4>
 
 - 微信被扫支付
 
@@ -59,6 +151,8 @@ Maven坐标如下
          */
         public ResultScan05 wx_scan_05(App app, OrderDetail orderDetail,String mhtSubAppId, String notifyUrl, String channelAuthCode,String mhtOrderNo)
 
+<h5 id='2.1.2'></h4>
+
 - 支付宝被扫支付
 
         /**
@@ -73,6 +167,7 @@ Maven坐标如下
          */
         public ResultScan05 ali_scan_05(App app, OrderDetail orderDetail, String notifyUrl, String channelAuthCode,String mhtOrderNo)
 
+<h5 id='2.1.3'></h4>
 
 - 手Q被扫支付
 
@@ -88,6 +183,8 @@ Maven坐标如下
          */
         public ResultScan05 handq_scan_05(App app, OrderDetail orderDetail, String notifyUrl, String channelAuthCode,String mhtOrderNo)
 
+<h5 id='2.1.4'></h4>
+
 - 京东被扫支付
 
         /**
@@ -102,6 +199,7 @@ Maven坐标如下
          */
         public ResultScan05 jd_scan_05(App app, OrderDetail orderDetail, String notifyUrl, String channelAuthCode,String mhtOrderNo)
 
+<h5 id='2.1.5'></h4>
 
 - 银联被扫支付
 
@@ -117,6 +215,7 @@ Maven坐标如下
          */
         public ResultScan05 union_scan_05(App app, OrderDetail orderDetail, String notifyUrl, String channelAuthCode,String mhtOrderNo)
 
+<h5 id='2.1.6'></h4>
 
 - 微信主扫支付
 
@@ -134,6 +233,7 @@ Maven坐标如下
          */
         public ResultScan08 wx_scan_08(App app, OrderDetail orderDetail, String mhtSubAppId,String notifyUrl,ResultType resultType,String mhtOrderNo)
 
+<h5 id='2.1.7'></h4>
 
 - 支付宝主扫支付
 
@@ -150,6 +250,8 @@ Maven坐标如下
          */
         public ResultScan08 ali_scan_08(App app, OrderDetail orderDetail, String notifyUrl,ResultType resultType,String mhtOrderNo)
 
+<h5 id='2.1.8'></h4>
+
 - 手Q主扫支付
 
         /**
@@ -164,6 +266,8 @@ Maven坐标如下
          * tn 二维码图片, 或者支付链接
          */
         public ResultScan08 handq_scan_08(App app, OrderDetail orderDetail, String notifyUrl,ResultType resultType,String mhtOrderNo)
+
+<h5 id='2.1.9'></h4>
 
 - 京东主扫支付
 
@@ -180,6 +284,7 @@ Maven坐标如下
          */
         public ResultScan08 jd_scan_08(App app, OrderDetail orderDetail, String notifyUrl,ResultType resultType,String mhtOrderNo)
 
+<h5 id='2.1.10'></h4>
 
 - 银联主扫支付
 
@@ -196,6 +301,7 @@ Maven坐标如下
          */
         public ResultScan08 union_scan_08(App app, OrderDetail orderDetail, String notifyUrl,ResultType resultType,String mhtOrderNo)
 
+<h5 id='2.1.11'></h4>
 
 - 微信公众号支付
 
@@ -211,7 +317,7 @@ Maven坐标如下
          */
         public String wx_p_account(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl,String mhtOrderNo)
 
-
+<h5 id='2.1.12'></h4>
 
 - 微信公众号支付(获取支付要素)
 
@@ -229,7 +335,7 @@ Maven坐标如下
          */
         public String wx_p_account_getParams(App app, OrderDetail orderDetail,String mhtSubAppId,String consumerId,String mhtOrderNo)
 
-
+<h5 id='2.1.13'></h4>
 
 - 支付宝公众号支付
 
@@ -245,7 +351,7 @@ Maven坐标如下
          */
         public  String ali_p_account(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl,String mhtOrderNo)
 
-
+<h5 id='2.1.14'></h4>
 
 - 支付宝公众号支付(获取支付要素)
 
@@ -261,6 +367,7 @@ Maven坐标如下
          */
         public  String ali_p_account_getParams(App app, OrderDetail orderDetail,String consumerId,String mhtOrderNo)
 
+<h5 id='2.1.15'></h4>
 
 - 手Q公众号支付
 
@@ -276,6 +383,7 @@ Maven坐标如下
          */
         public String handq_p_account(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl,String mhtOrderNo)
 
+<h5 id='2.1.16'></h4>
 
 - 手Q公众号支付(获取支付要素)
 
@@ -292,6 +400,7 @@ Maven坐标如下
          */
         public String handq_p_account_getParams(App app, OrderDetail orderDetail,String consumerId,String mhtOrderNo)
 
+<h5 id='2.1.17'></h4>
 
 - 微信H5
 
@@ -308,6 +417,7 @@ Maven坐标如下
          */
         public String wx_h5(App app, OrderDetail orderDetail,String consumerCreateIp,String notifyUrl,String frontNotifyUrl,String mhtOrderNo)
 
+<h5 id='2.1.18'></h4>
 
 - 支付宝H5
 
@@ -323,6 +433,7 @@ Maven坐标如下
          */
         public  String ali_h5(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl,String mhtOrderNo)
 
+<h5 id='2.1.19'></h4>
 
 - 银联H5
 
@@ -338,6 +449,7 @@ Maven坐标如下
          */
         public  String unionpay_h5(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl,String mhtOrderNo)
 
+<h5 id='2.1.20'></h4>
 
 - 招行一网通H5
 
@@ -353,6 +465,7 @@ Maven坐标如下
          */
         public  String cmbywt_h5(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl,String mhtOrderNo)
 
+<h5 id='2.1.21'></h4>
 
 - 手Q H5
 
@@ -368,6 +481,8 @@ Maven坐标如下
          */
         public  String handq_h5(App app, OrderDetail orderDetail,String notifyUrl,String frontNotifyUrl,String mhtOrderNo)
 
+<h5 id='2.1.22'></h4>
+
 - 支付宝网页web
 
         /**
@@ -381,6 +496,7 @@ Maven坐标如下
          */
         public String ali_web(App app, OrderDetail orderDetail, String notifyUrl,String mhtOrderNo)
 
+<h5 id='2.1.23'></h4>
 
 - 银联网页web
 
@@ -395,6 +511,7 @@ Maven坐标如下
          */
         public String union_web(App app, OrderDetail orderDetail, String notifyUrl,String mhtOrderNo)
 
+<h5 id='2.1.24'></h4>
 
 - 微信小程序支付
 
@@ -414,7 +531,9 @@ Maven坐标如下
 
 
 
+<h4 id='2.2'> 2.2 订单查询API </h4>
 
+<h5 id='2.2.1'></h4>
 
 - 商户被扫支付订单查询
 
@@ -427,6 +546,7 @@ Maven坐标如下
          */
         public Map queryOrderScan05(String mhtOrderNo,App app)
 
+<h5 id='2.2.2'></h4>
 
 - 商户主扫支付订单查询
 
@@ -439,6 +559,8 @@ Maven坐标如下
          */
         public Map queryOrderScan08(String mhtOrderNo,App app)
 
+<h5 id='2.2.3'></h4>
+
 - 商户公众号支付订单查询
 
         /**
@@ -449,6 +571,8 @@ Maven坐标如下
          * @return
          */
         public Map queryOrderPaccount(String mhtOrderNo,App app)
+
+<h5 id='2.2.4'></h4>
 
 - 商户H5支付订单查询
 
@@ -461,6 +585,8 @@ Maven坐标如下
          */
         public Map queryOrderH5(String mhtOrderNo,App app)
 
+<h5 id='2.2.5'></h4>
+
 - 商户网页支付订单查询
 
         /**
@@ -472,6 +598,8 @@ Maven坐标如下
          */
         public Map queryOrderWeb(String mhtOrderNo,App app)
 
+<h5 id='2.2.6'></h4>
+
 - 商户微信App支付订单查询
 
         /**
@@ -482,6 +610,10 @@ Maven坐标如下
          * @return
          */
         public Map queryOrderWxApp(String mhtOrderNo,App app)
+
+<h4 id='2.3'> 2.3 退款API </h4>
+
+<h5 id='2.3.1'></h4>
 
 - 退款
 
@@ -496,6 +628,7 @@ Maven坐标如下
          */
         public Map refundOrder(String appId,String appKey,String mhtOrderNo,Integer amount,String reason)
 
+<h5 id='2.3.2'></h4>
 
 - 退款查询
 
@@ -507,6 +640,8 @@ Maven坐标如下
          * @return
          */
         public Map refundQuery(String appId,String appKey,String mhtRefundNo)
+
+<h5 id='2.3.3'></h4>
 
 - 撤销
 
@@ -520,6 +655,8 @@ Maven坐标如下
          */
         public Map backOrder(String appId,String appKey,String mhtOrderNo,String reason)
 
+<h5 id='2.3.4'></h4>
+
 - 撤销查询
 
         /**
@@ -532,7 +669,7 @@ Maven坐标如下
         public Map backQuery(String appId,String appKey,String mhtRefundNo)
 
 
-## 3. DEMO说明 ##
+<h2 id='3'> 3. DEMO说明 </h2>
 
             直接运行cn.ipaynow.ipaynow_pay_demo.Main
             访问
