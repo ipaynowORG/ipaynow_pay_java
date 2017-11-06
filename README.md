@@ -52,12 +52,12 @@ Maven坐标如下
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
          * @param mhtSubAppId 微信子号对应多个公众号的时候必填,如果只对应一个公众号则不传
-         * @param notifyUr 后台通知地址
+         * @param notifyUrl 后台通知地址
          * @param channelAuthCode 支付码
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
          */
-        public ResultScan05 wx_scan_05(App app, OrderDetail orderDetail,String mhtSubAppId, String notifyUr, String channelAuthCode,String mhtOrderNo)
+        public ResultScan05 wx_scan_05(App app, OrderDetail orderDetail,String mhtSubAppId, String notifyUrl, String channelAuthCode,String mhtOrderNo)
 
 - 支付宝被扫支付
 
@@ -66,12 +66,12 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUr 后台通知地址
+         * @param notifyUrl 后台通知地址
          * @param channelAuthCode 支付码
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
          */
-        public ResultScan05 ali_scan_05(App app, OrderDetail orderDetail, String notifyUr, String channelAuthCode,String mhtOrderNo)
+        public ResultScan05 ali_scan_05(App app, OrderDetail orderDetail, String notifyUrl, String channelAuthCode,String mhtOrderNo)
 
 
 - 手Q被扫支付
