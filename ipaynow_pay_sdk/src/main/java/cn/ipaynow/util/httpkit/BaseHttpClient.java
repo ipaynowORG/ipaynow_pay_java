@@ -1,6 +1,7 @@
 package cn.ipaynow.util.httpkit;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
@@ -115,10 +116,16 @@ public class BaseHttpClient {
             }
             CloseableHttpResponse response = httpClient.execute(httpPost);
             int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 302) {
+                Header header = response.getFirstHeader("location"); // 跳转的目标地址是在 HTTP-HEAD 中的
+                response.close();
+                return header.getValue();
+            }
             if (statusCode != 200) {
                 httpPost.abort();
                 throw new HttpClientException("http status code is " + statusCode);
             }
+
             HttpEntity entity = response.getEntity();
             String result = null;
             if (entity != null){

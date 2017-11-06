@@ -12,7 +12,7 @@
 
 - 1.1.2 : sdk增加可选的商户订单号参数,支付订单查询分成多个方法,增加微信支付宝外的渠道方法
 
-+ httpclient + 目录
++ httpclient + 目录 + 支付结果通知说明
 
 
 
@@ -76,32 +76,33 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[微信小程序支付](#2.1.24)
 
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2 支付结果通知](#2.2)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[2.2 订单查询API](#2.2)
+&nbsp;&nbsp;&nbsp;&nbsp;[2.3 订单查询API](#2.3)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户被扫支付订单查询](#2.2.1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户被扫支付订单查询](#2.3.1)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户主扫支付订单查询](#2.2.2)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户主扫支付订单查询](#2.3.2)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户公众号支付订单查询](#2.2.3)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户公众号支付订单查询](#2.3.3)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户H5支付订单查询](#2.2.4)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户H5支付订单查询](#2.3.4)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户网页支付订单查询](#2.2.5)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户网页支付订单查询](#2.3.5)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户微信App支付订单查询](#2.2.6)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[商户微信App支付订单查询](#2.3.6)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[2.3 退款API](#2.3)
+&nbsp;&nbsp;&nbsp;&nbsp;[2.4 退款API](#2.4)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[退款](#2.3.1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[退款](#2.4.1)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[退款查询](#2.3.2)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[退款查询](#2.4.2)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[撤销](#2.3.3)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[撤销](#2.4.3)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[撤销查询](#2.3.4)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[撤销查询](#2.4.4)
 
-[3. DEMO](#3)
+[3. 完整DEMO](#3)
 
 
 <h2 id='1'> 1. 概述 </h2>
@@ -144,7 +145,7 @@ Maven坐标如下
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
          * @param mhtSubAppId 微信子号对应多个公众号的时候必填,如果只对应一个公众号则不传
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param channelAuthCode 支付码
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
@@ -160,7 +161,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param channelAuthCode 支付码
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
@@ -176,7 +177,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param channelAuthCode 支付码
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
@@ -192,7 +193,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param channelAuthCode 支付码
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
@@ -208,7 +209,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param channelAuthCode 支付码
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间 payResult 支付结果
@@ -225,7 +226,7 @@ Maven坐标如下
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
          * @param mhtSubAppId 微信子号对应多个公众号的时候必填,如果只对应一个公众号则不传
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param resultType PIC: tn为二维码图片(data:..格式)  URL : tn为支付链接
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间
@@ -242,7 +243,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param resultType PIC: tn为二维码图片(data:..格式)  URL : tn为支付链接
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间
@@ -259,7 +260,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param resultType PIC: tn为二维码图片(data:..格式)  URL : tn为支付链接
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间
@@ -276,7 +277,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param resultType PIC: tn为二维码图片(data:..格式)  URL : tn为支付链接
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间
@@ -293,7 +294,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param resultType PIC: tn为二维码图片(data:..格式)  URL : tn为支付链接
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  respResult 应答码 responseMsg 应答消息 mhtOrderNo 商户订单号 nowPayOrderNo 现在支付订单号 responseTime 相应时间
@@ -310,7 +311,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param frontNotifyUrl 前台页面跳转地址
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
@@ -344,7 +345,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param frontNotifyUrl 前台页面跳转地址
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
@@ -376,7 +377,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param frontNotifyUrl 前台页面跳转地址
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
@@ -410,7 +411,7 @@ Maven坐标如下
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
          * @param consumerCreateIp 用户支付IP
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param frontNotifyUrl 前台页面跳转地址
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
@@ -426,7 +427,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param frontNotifyUrl 前台页面跳转地址
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
@@ -442,7 +443,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param frontNotifyUrl 前台页面跳转地址
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
@@ -458,7 +459,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param frontNotifyUrl 前台页面跳转地址
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
@@ -474,7 +475,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param frontNotifyUrl 前台页面跳转地址
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
@@ -490,7 +491,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
          */
@@ -505,7 +506,7 @@ Maven坐标如下
          * @param app appId(应用ID)和appKey ,
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail 商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动)
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  重定向地址
          */
@@ -521,19 +522,166 @@ Maven坐标如下
          * 登录商户后台 : https://mch.ipaynow.cn ->商户中心->应用信息可以新增应用或查看appKey
          * @param orderDetail   商品名称,商品描述,商品价格(单位分),商品标记(用于营销活动),
          * @param consumerId  用户openId
-         * @param notifyUrl 后台通知地址
+         * @param notifyUrl 后台通知地址,详见2.2
          * @param mhtOrderNo 商户订单号,如果为空则自动生成商户订单号
          * @return  支付要素
          */
         public String wx_app(App app, OrderDetail4WxApp orderDetail, String consumerId,String notifyUrl,String mhtOrderNo)
 
 
+<h4 id='2.2'>2.2 支付结果通知</h4>
+
+通知方式采用httppost方式通知,接受demo如下
+
+        //获取通知数据需要从body中流式读取
+        BufferedReader reader = req.getReader();
+        StringBuilder reportBuilder = new StringBuilder();
+        String tempStr = "";
+        while((tempStr = reader.readLine()) != null){
+               reportBuilder.append(tempStr);
+        }
+        //报文数据字符串
+        String reportContent = reportBuilder.toString();
 
 
+字段含义如下:
 
-<h4 id='2.2'> 2.2 订单查询API </h4>
+<table>
+        <tr>
+            <th>字段名称</th>
+            <th>字段Key</th>
+            <th>备注</th>
+        </tr>
+        <tr>
+            <td>功能码</td>
+            <td>funcode</td>
+            <td>定值：N001</td>
+        </tr>
+        <tr>
+            <td>接口版本号</td>
+            <td>version</td>
+            <td>定值：1.0.0</td>
+         </tr>
+<tr>
+            <td>商户应用唯一标识</td>
+            <td>appId</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>商户订单号</td>
+            <td>mhtOrderNo</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>商户商品名称</td>
+            <td>mhtOrderName</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>商户交易类型</td>
+            <td>mhtOrderType</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>商户订单币种类型</td>
+            <td>mhtCurrencyType</td>
+            <td>156人民币</td>
+         </tr>
+<tr>
+            <td>商户订单原单金额</td>
+            <td>oriMhtOrderAmt</td>
+            <td>单位(人民币)：分</td>
+         </tr>
+<tr>
+            <td>商户订单实付金额</td>
+            <td>mhtOrderAmt</td>
+            <td>单位(人民币)：分</td>
+         </tr>
+<tr>
+            <td>商户订单优惠金额</td>
+            <td>discountAmt</td>
+            <td>单位(人民币)：分</td>
+         </tr>
+<tr>
+            <td>商户订单超时时间</td>
+            <td>mhtOrderTimeOut</td>
+            <td>60~3600秒，默认3600</td>
+         </tr>
+<tr>
+            <td>商户订单开始时间</td>
+            <td>mhtOrderStartTime</td>
+            <td>yyyyMMddHHmmss</td>
+         </tr>
+<tr>
+            <td>支付成功时间</td>
+            <td>payTime</td>
+            <td>yyyyMMddHHmmss</td>
+         </tr>
+<tr>
+            <td>商户字符编码</td>
+            <td>mhtCharset</td>
+            <td>UTF-8</td>
+         </tr>
+<tr>
+            <td>现在支付流水号</td>
+            <td>nowPayOrderNo</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>设备类型</td>
+            <td>deviceType</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>用户所选渠道类型</td>
+            <td>payChannelType</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>交易支付状态</td>
+            <td>transStatus</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>渠道订单号</td>
+            <td>channelOrderNo</td>
+            <td></td>
+         </tr>
+<tr>
+            <td>付款人账号</td>
+            <td>payConsumerId</td>
+            <td>微信返回sub_openid,支付宝返回buyer_user_id</td>
+         </tr>
+<tr>
+            <td>商户保留域</td>
+            <td>mhtReserved</td>
+            <td>给商户使用的字段，商户可以对交易进行标记，现在支付将原样返回</td>
+         </tr>
+<tr>
+            <td>签名方法</td>
+            <td>signType</td>
+            <td>定值：MD5</td>
+         </tr>
+<tr>
+            <td>数据签名</td>
+            <td>signature</td>
+            <td>除signature字段外，所有参数都参与MD5签名</td>
+         </tr>
+<tr>
+            <td>银行类型</td>
+            <td>bankType</td>
+            <td>微信渠道返回</td>
+         </tr>
+<tr>
+            <td>卡类型</td>
+            <td>cardType</td>
+            <td>CREDIT 信用卡  DEBIT  借记卡</td>
+         </tr>
+    </table>
 
-<h5 id='2.2.1'></h4>
+<h4 id='2.3'> 2.3 订单查询API </h4>
+
+<h5 id='2.3.1'></h4>
 
 - 商户被扫支付订单查询
 
@@ -546,7 +694,7 @@ Maven坐标如下
          */
         public Map queryOrderScan05(String mhtOrderNo,App app)
 
-<h5 id='2.2.2'></h4>
+<h5 id='2.3.2'></h4>
 
 - 商户主扫支付订单查询
 
@@ -559,7 +707,7 @@ Maven坐标如下
          */
         public Map queryOrderScan08(String mhtOrderNo,App app)
 
-<h5 id='2.2.3'></h4>
+<h5 id='2.3.3'></h4>
 
 - 商户公众号支付订单查询
 
@@ -572,7 +720,7 @@ Maven坐标如下
          */
         public Map queryOrderPaccount(String mhtOrderNo,App app)
 
-<h5 id='2.2.4'></h4>
+<h5 id='2.3.4'></h4>
 
 - 商户H5支付订单查询
 
@@ -585,7 +733,7 @@ Maven坐标如下
          */
         public Map queryOrderH5(String mhtOrderNo,App app)
 
-<h5 id='2.2.5'></h4>
+<h5 id='2.3.5'></h4>
 
 - 商户网页支付订单查询
 
@@ -598,7 +746,7 @@ Maven坐标如下
          */
         public Map queryOrderWeb(String mhtOrderNo,App app)
 
-<h5 id='2.2.6'></h4>
+<h5 id='2.3.6'></h4>
 
 - 商户微信App支付订单查询
 
@@ -611,9 +759,10 @@ Maven坐标如下
          */
         public Map queryOrderWxApp(String mhtOrderNo,App app)
 
-<h4 id='2.3'> 2.3 退款API </h4>
 
-<h5 id='2.3.1'></h4>
+<h4 id='2.4'> 2.4 退款API </h4>
+
+<h5 id='2.4.1'></h4>
 
 - 退款
 
@@ -628,7 +777,7 @@ Maven坐标如下
          */
         public Map refundOrder(String appId,String appKey,String mhtOrderNo,Integer amount,String reason)
 
-<h5 id='2.3.2'></h4>
+<h5 id='2.4.2'></h4>
 
 - 退款查询
 
@@ -641,7 +790,7 @@ Maven坐标如下
          */
         public Map refundQuery(String appId,String appKey,String mhtRefundNo)
 
-<h5 id='2.3.3'></h4>
+<h5 id='2.4.3'></h4>
 
 - 撤销
 
@@ -655,7 +804,7 @@ Maven坐标如下
          */
         public Map backOrder(String appId,String appKey,String mhtOrderNo,String reason)
 
-<h5 id='2.3.4'></h4>
+<h5 id='2.4.4'></h4>
 
 - 撤销查询
 
@@ -669,7 +818,7 @@ Maven坐标如下
         public Map backQuery(String appId,String appKey,String mhtRefundNo)
 
 
-<h2 id='3'> 3. DEMO说明 </h2>
+<h2 id='3'> 3. 完整DEMO </h2>
 
             直接运行cn.ipaynow.ipaynow_pay_demo.Main
             访问
