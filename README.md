@@ -12,7 +12,7 @@
 
 - 1.1.2 : sdk增加可选的商户订单号参数,支付订单查询分成多个方法,增加微信支付宝外的渠道方法
 
-+ httpclient + 目录 + 支付结果通知说明
+- 1.1.3 : 文档增加目录及支付结果说明,使用httpclient
 
 
 
@@ -122,7 +122,7 @@ Maven坐标如下
 	<dependency>
 	       <groupId>com.github.ipaynow</groupId>
            <artifactId>ipaynow_pay_sdk</artifactId>
-           <version>1.1.2</version>
+           <version>1.1.3</version>
 	</dependency>
 
 
