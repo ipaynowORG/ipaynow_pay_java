@@ -14,7 +14,7 @@
 
 - 1.1.3 : 文档增加目录及支付结果说明,使用httpclient
 
-
+- 1.1.4 : 可配置调用生产或测试环境
 
 ## 目录 ##
 
@@ -122,7 +122,7 @@ Maven坐标如下
 	<dependency>
 	       <groupId>com.github.ipaynow</groupId>
            <artifactId>ipaynow_pay_sdk</artifactId>
-           <version>1.1.3</version>
+           <version>1.1.4</version>
 	</dependency>
 
 
