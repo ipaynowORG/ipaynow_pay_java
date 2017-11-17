@@ -133,8 +133,8 @@ Maven坐标如下
 
 业务客户端使用SDK的相关类: cn.ipaynow.pay.sdk.PaySdk
 
-PaySdk paySdk = new PaySdk();//调用生产环境
-PaySdk paySdk = new PaySdk(true);//调用测试环境
+    PaySdk paySdk = new PaySdk();//调用生产环境
+    PaySdk paySdk = new PaySdk(true);//调用测试环境
 
 <h4 id='2.1'> 2.1 聚合交易API </h4>
 
