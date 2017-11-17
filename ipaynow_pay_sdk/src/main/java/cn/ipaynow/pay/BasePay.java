@@ -23,7 +23,7 @@ import java.util.*;
 public class BasePay {
 
     public static final String URL_PROD = "https://pay.ipaynow.cn/";
-    public static final String URL = "https://dby.ipaynow.cn/";
+    public static final String URL = "https://dby.ipaynow.cn/api/payment/";
 
     public static final String URL_REFOUND_ORDER_PROD = "https://pay.ipaynow.cn/refund/refundOrder";
     public static final String URL_REFOUND_ORDER = "https://dby.ipaynow.cn/refund_access/refundOrder";
