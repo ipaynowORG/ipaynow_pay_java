@@ -26,10 +26,10 @@ public class BasePay {
     public static final String URL = "https://dby.ipaynow.cn/";
 
     public static final String URL_REFOUND_ORDER_PROD = "https://pay.ipaynow.cn/refund/refundOrder";
-    public static final String URL_REFOUND_ORDER = "https://dby.ipaynow.cn/refund/refundOrder";
+    public static final String URL_REFOUND_ORDER = "https://dby.ipaynow.cn/refund_access/refundOrder";
 
     public static final String URL_REFOUND_QUERY_PROD = "https://pay.ipaynow.cn/refund/refundQuery";
-    public static final String URL_REFOUND_QUERY = "https://dby.ipaynow.cn/refund/refundQuery";
+    public static final String URL_REFOUND_QUERY = "https://dby.ipaynow.cn/refund_access/refundQuery";
 
     protected HttpsTookit httpsTookit;
 
