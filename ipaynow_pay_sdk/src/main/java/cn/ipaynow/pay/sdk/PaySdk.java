@@ -25,6 +25,12 @@ import java.util.Map;
  */
 public class PaySdk extends BasePay {
 
+    public PaySdk(){
+        super();
+    }
+    public PaySdk(boolean isDev){
+        super(isDev);
+    }
 
     /**
      * 被扫支付
@@ -807,7 +813,7 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = httpsTookit.doPost("https://pay.ipaynow.cn/refund/refundOrder",content,null,null,"UTF-8");
+            result = httpsTookit.doPost(isDev?BasePay.URL_REFOUND_ORDER:BasePay.URL_REFOUND_ORDER_PROD,content,null,null,"UTF-8");
 //            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundOrder",content);
         } catch (Exception e) {
             e.printStackTrace();
@@ -850,7 +856,7 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = httpsTookit.doPost("https://pay.ipaynow.cn/refund/refundQuery",content,null,null,"UTF-8");
+            result = httpsTookit.doPost(isDev?BasePay.URL_REFOUND_QUERY:BasePay.URL_REFOUND_QUERY_PROD,content,null,null,"UTF-8");
 //            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundQuery",content);
         } catch (Exception e) {
             e.printStackTrace();
@@ -903,7 +909,7 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = httpsTookit.doPost("https://pay.ipaynow.cn/refund/refundOrder",content,null,null,"UTF-8");
+            result = httpsTookit.doPost(isDev?BasePay.URL_REFOUND_ORDER:BasePay.URL_REFOUND_ORDER_PROD,content,null,null,"UTF-8");
 //            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundOrder",content);
         } catch (Exception e) {
             e.printStackTrace();
@@ -949,7 +955,7 @@ public class PaySdk extends BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = httpsTookit.doPost("https://pay.ipaynow.cn/refund/refundQuery",content,null,null,"UTF-8");
+            result = httpsTookit.doPost(isDev?BasePay.URL_REFOUND_QUERY:BasePay.URL_REFOUND_QUERY_PROD,content,null,null,"UTF-8");
 //            result = HttpKit.postRequest("https://pay.ipaynow.cn/refund/refundQuery",content);
         } catch (Exception e) {
             e.printStackTrace();

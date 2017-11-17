@@ -22,11 +22,26 @@ import java.util.*;
  */
 public class BasePay {
 
-    private static final String URL = "https://pay.ipaynow.cn/";
+    public static final String URL_PROD = "https://pay.ipaynow.cn/";
+    public static final String URL = "https://dby.ipaynow.cn/";
+
+    public static final String URL_REFOUND_ORDER_PROD = "https://pay.ipaynow.cn/refund/refundOrder";
+    public static final String URL_REFOUND_ORDER = "https://dby.ipaynow.cn/refund/refundOrder";
+
+    public static final String URL_REFOUND_QUERY_PROD = "https://pay.ipaynow.cn/refund/refundQuery";
+    public static final String URL_REFOUND_QUERY = "https://dby.ipaynow.cn/refund/refundQuery";
 
     protected HttpsTookit httpsTookit;
 
+
+    protected boolean isDev;
+
     public BasePay() {
+        this(false);
+    }
+
+    public BasePay(boolean isDev) {
+        this.isDev = isDev;
         try {
             httpsTookit = new HttpsTookit(null,null);
         } catch (KeyStoreException e) {
@@ -142,7 +157,7 @@ public class BasePay {
         content = content.substring(0,content.length()-1);
         String result = null;
         try {
-            result = httpsTookit.doPost(URL,content,null,null,"UTF-8");
+            result = httpsTookit.doPost(isDev?URL:URL_PROD,content,null,null,"UTF-8");
 //            result = HttpKit.postRequest(URL,content);
         } catch (Exception e) {
             e.printStackTrace();
