@@ -16,6 +16,8 @@
 
 - 1.1.4 : 可配置调用生产或测试环境
 
+- 1.1.5 : 可配置调用生产或测试环境
+
 ## 目录 ##
 
 [1. 概述](#1)
@@ -122,7 +124,7 @@ Maven坐标如下
 	<dependency>
 	       <groupId>com.github.ipaynow</groupId>
            <artifactId>ipaynow_pay_sdk</artifactId>
-           <version>1.1.4</version>
+           <version>1.1.5</version>
 	</dependency>
 
 
